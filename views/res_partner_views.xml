@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--
+        El módulo OCA partner_middlename coloca el campo 'middlename' ANTES de 'firstname'
+        en la vista del formulario de contacto. Este módulo corrige ese orden.
+
+        Orden resultante: Nombre → Segundo Nombre → Apellido → Segundo Apellido
+    -->
+    <record id="view_partner_form_fix_name_order" model="ir.ui.view">
+        <field name="name">res.partner.form.fix.name.order</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="partner_middlename.partner_simple_form"/>
+        <field name="arch" type="xml">
+            <!-- Paso 1: Quitar middlename de su posición actual (antes de firstname) -->
+            <xpath expr="//field[@name='middlename']" position="replace"/>
+
+            <!-- Paso 2: Insertar middlename justo después de firstname -->
+            <xpath expr="//field[@name='firstname']" position="after">
+                <field name="middlename"
+                       attrs="{'invisible': [('is_company', '=', True)]}"
+                       placeholder="Segundo nombre..."/>
+            </xpath>
+        </field>
+    </record>
+</odoo>
