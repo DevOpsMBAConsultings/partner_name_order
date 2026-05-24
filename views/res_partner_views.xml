@@ -17,7 +17,7 @@
             <!-- Paso 2: Insertar middlename justo después de firstname -->
             <xpath expr="//field[@name='firstname']" position="after">
                 <field name="middlename"
-                       attrs="{'invisible': [('is_company', '=', True)]}"
+                       invisible="is_company"
                        placeholder="Segundo nombre..."/>
             </xpath>
         </field>
